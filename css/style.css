@@ -88,12 +88,52 @@ body {
     min-height: 50px;
     width: 100%;
     display: flex;
-    align-items: center;
-    padding-left: 20px;
     font-family: 'Roboto Slab', serif;
     cursor: pointer;
+    font-size: 14px;
+}
+
+.list_item_crossed .text_container {
+    text-decoration: line-through;
 }
 
 .list_item_crossed {
-    text-decoration: line-through;
+    opacity: .3;
+}
+
+.list_item .checkbox_container {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.list_item .checkbox_container .square {
+    height: 20px;
+    width: 20px;
+    border: 3px solid #222;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+
+.list_item .checkbox_container .square i {
+    opacity: 0;
+    transition: .2s opacity ease-in-out;
+}
+
+.list_item_crossed .checkbox_container .square i {
+    opacity: 1;
+}
+
+.list_item .text_container {
+    width: calc(100% - 50px);
+    height: 50px;
+    display: flex;
+    padding-right: 20px;
+    align-items: center;
 }
