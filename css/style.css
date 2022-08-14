@@ -79,3 +79,20 @@ body {
     background: #222;
     color: #fff;
 }
+
+.list {
+    width: 100%;
+}
+
+.list .list_item {
+    min-height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    font-family: 'Roboto Slab', serif;
+}
+
+.list_item_crossed {
+    text-decoration: line-through;
+}
