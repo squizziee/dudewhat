@@ -91,6 +91,7 @@ body {
     font-family: 'Roboto Slab', serif;
     cursor: pointer;
     font-size: 14px;
+    position: relative;
 }
 
 .list_item_crossed .text_container {
@@ -136,4 +137,29 @@ body {
     display: flex;
     padding-right: 20px;
     align-items: center;
+}
+
+.edit_btn, .delete_btn {
+    position: absolute;
+    top: 50%;
+    outline: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    opacity: 0;
+    transition: .1s opacity ease-in-out;
+}
+
+.list_item:hover > .edit_btn, .list_item:hover > .delete_btn {
+    opacity: 1;
+}
+
+.edit_btn {
+    transform: translate(0, -50%);
+    right: 50px;
+}
+
+.delete_btn {
+    transform: translate(0, -50%);
+    right: 20px;
 }

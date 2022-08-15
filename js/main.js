@@ -2,7 +2,7 @@ let listItems = document.querySelectorAll(".list_item")
 let list = document.getElementById("list");
 let prompt = document.getElementById("prompt");
 let addBtn = document.getElementById("addBtn");
-let removeBtn = document.getElementById("removeBtn");
+let removeAllBtn = document.getElementById("removeAllBtn");
 
 function addListener(obj) {
     obj.addEventListener("click", function() {
@@ -20,6 +20,11 @@ for (let i = 0; i < listItems.length; i++) {
             listItems[i].classList.add("list_item_crossed");
         else
             obj.classList.remove("list_item_crossed");
+    })
+}
+function addDeletionListener(element) {
+    element.addEventListener("click", function() {
+        element.parentNode.remove();
     })
 }
 
@@ -40,6 +45,25 @@ addBtn.addEventListener("click", function() {
     tick.classList.add("fa-solid");
     tick.classList.add("fa-xmark");
 
+    let deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("delete_btn")
+
+    let deleteBtnIcon = document.createElement("i");
+    deleteBtnIcon.classList.add("fa-solid");
+    deleteBtnIcon.classList.add("fa-trash-can");
+
+    deleteBtn.appendChild(deleteBtnIcon);
+    addDeletionListener(deleteBtn)
+
+    let editBtn = document.createElement("button");
+    editBtn.classList.add("edit_btn");
+
+    let editBtnIcon = document.createElement("i");
+    editBtnIcon.classList.add("fa-solid");
+    editBtnIcon.classList.add("fa-pen-to-square");
+
+    editBtn.appendChild(editBtnIcon);
+
     let text = document.createTextNode(prompt.value);
 
     textContainer.appendChild(text);
@@ -47,12 +71,14 @@ addBtn.addEventListener("click", function() {
     checkboxContainer.appendChild(square);
     listItem.appendChild(checkboxContainer);
     listItem.appendChild(textContainer)
+    listItem.appendChild(deleteBtn);
+    listItem.appendChild(editBtn);
     list.appendChild(listItem);
     
     addListener(listItem);
     prompt.value = "";
 })
 
-removeBtn.addEventListener("click", function () {
+removeAllBtn.addEventListener("click", function () {
     list.innerHTML = '';
 })
