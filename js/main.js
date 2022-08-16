@@ -4,31 +4,7 @@ let prompt = document.getElementById("prompt");
 let addBtn = document.getElementById("addBtn");
 let removeAllBtn = document.getElementById("removeAllBtn");
 
-function addListener(obj) {
-    obj.addEventListener("click", function() {
-        if (!obj.classList.contains("list_item_crossed"))
-            obj.classList.add("list_item_crossed");
-        else
-            obj.classList.remove("list_item_crossed");
-    })
-}
-//temprorary
-for (let i = 0; i < listItems.length; i++) {
-    let obj = listItems[i];
-    obj.addEventListener("click", function() {
-        if (!obj.classList.contains("list_item_crossed"))
-            listItems[i].classList.add("list_item_crossed");
-        else
-            obj.classList.remove("list_item_crossed");
-    })
-}
-function addDeletionListener(element) {
-    element.addEventListener("click", function() {
-        element.parentNode.remove();
-    })
-}
-
-addBtn.addEventListener("click", function() {
+function construct() {
     let listItem = document.createElement("div");
     listItem.classList.add("list_item");
 
@@ -63,21 +39,55 @@ addBtn.addEventListener("click", function() {
     editBtnIcon.classList.add("fa-pen-to-square");
 
     editBtn.appendChild(editBtnIcon);
+    addEditListener(editBtn);
 
     let text = document.createTextNode(prompt.value);
 
     textContainer.appendChild(text);
     square.appendChild(tick);
     checkboxContainer.appendChild(square);
+    addListener(checkboxContainer);
     listItem.appendChild(checkboxContainer);
     listItem.appendChild(textContainer)
     listItem.appendChild(deleteBtn);
     listItem.appendChild(editBtn);
     list.appendChild(listItem);
     
-    addListener(listItem);
     prompt.value = "";
-})
+}
+
+addBtn.addEventListener("click", construct)
+
+function addListener(obj) {
+    obj.addEventListener("click", function() {
+        if (!obj.parentNode.classList.contains("list_item_crossed"))
+            obj.parentNode.classList.add("list_item_crossed");
+        else
+            obj.parentNode.classList.remove("list_item_crossed");
+    })
+}
+
+function addDeletionListener(element) {
+    element.addEventListener("click", function() {
+        element.parentNode.remove();
+    })
+}
+
+function transmitChanges(element) {
+    element.currentTarget.myParam.parentNode.getElementsByClassName("text_container")[0].innerHTML = prompt.value;
+    prompt.value = "";
+}
+
+function addEditListener(element) {
+    element.addEventListener("click", function() {
+        prompt.value = element.parentNode.getElementsByClassName("text_container")[0].innerHTML;
+        addBtn.removeEventListener("click", construct);
+        addBtn.myParam = element;
+        addBtn.addEventListener("click", transmitChanges)
+    })
+    addBtn.removeEventListener("click", transmitChanges);
+    addBtn.addEventListener("click", construct);
+}
 
 removeAllBtn.addEventListener("click", function () {
     list.innerHTML = '';

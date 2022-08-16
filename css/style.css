@@ -99,7 +99,15 @@ body {
 }
 
 .list_item_crossed {
-    opacity: .3;
+    color:rgba(0, 0, 0, .3);
+}
+
+.list_item_crossed > i {
+    color: #222;
+}
+
+.list_item_crossed .checkbox_container .square {
+    border: 3px solid rgba(0, 0, 0, .3) !important;
 }
 
 .list_item .checkbox_container {
