@@ -75,7 +75,10 @@ function addDeletionListener(element) {
 
 function transmitChanges(element) {
     element.currentTarget.myParam.parentNode.getElementsByClassName("text_container")[0].innerHTML = prompt.value;
+    element.currentTarget.myParam = undefined;
     prompt.value = "";
+    addBtn.removeEventListener("click", transmitChanges);
+    addBtn.addEventListener("click", construct);
 }
 
 function addEditListener(element) {
@@ -85,8 +88,6 @@ function addEditListener(element) {
         addBtn.myParam = element;
         addBtn.addEventListener("click", transmitChanges)
     })
-    addBtn.removeEventListener("click", transmitChanges);
-    addBtn.addEventListener("click", construct);
 }
 
 removeAllBtn.addEventListener("click", function () {
