@@ -1,4 +1,3 @@
-let listItems = document.querySelectorAll(".list_item")
 let list = document.getElementById("list");
 let prompt = document.getElementById("prompt");
 let addBtn = document.getElementById("addBtn");
@@ -46,50 +45,54 @@ function construct() {
     textContainer.appendChild(text);
     square.appendChild(tick);
     checkboxContainer.appendChild(square);
-    addListener(checkboxContainer);
+    addCrossListener(checkboxContainer);
     listItem.appendChild(checkboxContainer);
     listItem.appendChild(textContainer)
     listItem.appendChild(deleteBtn);
     listItem.appendChild(editBtn);
     list.appendChild(listItem);
     
+    clearPrompt();
+}
+
+function clearPrompt() {
     prompt.value = "";
 }
 
 addBtn.addEventListener("click", construct)
 
-function addListener(obj) {
-    obj.addEventListener("click", function() {
-        if (!obj.parentNode.classList.contains("list_item_crossed"))
-            obj.parentNode.classList.add("list_item_crossed");
+removeAllBtn.addEventListener("click", function () {
+    list.innerHTML = '';
+})
+
+function addCrossListener(checkbox) {
+    checkbox.addEventListener("click", function() {
+        if (!checkbox.parentNode.classList.contains("list_item_crossed"))
+            checkbox.parentNode.classList.add("list_item_crossed");
         else
-            obj.parentNode.classList.remove("list_item_crossed");
+            checkbox.parentNode.classList.remove("list_item_crossed");
     })
 }
 
-function addDeletionListener(element) {
-    element.addEventListener("click", function() {
-        element.parentNode.remove();
+function addDeletionListener(btn) {
+    btn.addEventListener("click", function() {
+        btn.parentNode.remove();
     })
 }
 
 function transmitChanges(element) {
-    element.currentTarget.myParam.parentNode.getElementsByClassName("text_container")[0].innerHTML = prompt.value;
-    element.currentTarget.myParam = undefined;
-    prompt.value = "";
+    element.currentTarget.targetBtn.parentNode.querySelector(".text_container").innerHTML = prompt.value;
+    element.currentTarget.targetBtn = undefined;
     addBtn.removeEventListener("click", transmitChanges);
     addBtn.addEventListener("click", construct);
+    clearPrompt();
 }
 
 function addEditListener(element) {
     element.addEventListener("click", function() {
-        prompt.value = element.parentNode.getElementsByClassName("text_container")[0].innerHTML;
+        prompt.value = element.parentNode.querySelector(".text_container").innerHTML;
         addBtn.removeEventListener("click", construct);
-        addBtn.myParam = element;
+        addBtn.targetBtn = element;
         addBtn.addEventListener("click", transmitChanges)
     })
 }
-
-removeAllBtn.addEventListener("click", function () {
-    list.innerHTML = '';
-})
